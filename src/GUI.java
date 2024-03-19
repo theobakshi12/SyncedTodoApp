@@ -4,8 +4,11 @@ import java.awt.*;
 public class GUI {
 
     private JTextArea textArea;
+    private JTextField usernameField;
+    private Backend backend;
 
     public GUI () {
+        backend = new Backend();
         initFrame();
     }
 
@@ -16,10 +19,14 @@ public class GUI {
 
         JButton saveButton = new JButton("save");
         saveButton.addActionListener(e -> {
-            System.out.println(textArea.getText());
+            backend.save(usernameField.getText(), textArea.getText());
         });
-        JButton topButton2 = new JButton("top2");
-        JButton topButton3 = new JButton("top3");
+        JButton loadButton = new JButton("load");
+        loadButton.addActionListener(e -> {
+            textArea.setText(backend.getContent(usernameField.getText()));
+        });
+        usernameField = new JTextField("theobakshi12");
+        usernameField.setEditable(true);
 
         JButton sideButton1 = new JButton("side1");
         JButton sideButton2 = new JButton("side2");
@@ -30,9 +37,11 @@ public class GUI {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
 
+        textArea.setText(backend.getContent(usernameField.getText())); //load on startup
+
         topBar.add(saveButton);
-        topBar.add(topButton2);
-        topBar.add(topButton3);
+        topBar.add(loadButton);
+        topBar.add(usernameField);
         topBar.setBorder(BorderFactory.createTitledBorder("top bar"));
 
         Box sideBox = Box.createVerticalBox();
@@ -52,7 +61,7 @@ public class GUI {
         frame.add(mainArea, BorderLayout.CENTER);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.pack();
+        frame.setSize(800,600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
