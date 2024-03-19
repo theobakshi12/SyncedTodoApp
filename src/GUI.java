@@ -3,6 +3,8 @@ import java.awt.*;
 
 public class GUI {
 
+    private JTextArea textArea;
+
     public GUI () {
         initFrame();
     }
@@ -10,9 +12,12 @@ public class GUI {
     private void initFrame() {
         JPanel topBar = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JPanel sideBar = new JPanel();
-        JPanel mainArea = new JPanel();
+        JPanel mainArea = new JPanel(new BorderLayout());
 
-        JButton topButton1 = new JButton("top1");
+        JButton saveButton = new JButton("save");
+        saveButton.addActionListener(e -> {
+            System.out.println(textArea.getText());
+        });
         JButton topButton2 = new JButton("top2");
         JButton topButton3 = new JButton("top3");
 
@@ -20,12 +25,12 @@ public class GUI {
         JButton sideButton2 = new JButton("side2");
         JButton sideButton3 = new JButton("side3");
 
-        JTextArea textArea = new JTextArea();
+        textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
 
-        topBar.add(topButton1);
+        topBar.add(saveButton);
         topBar.add(topButton2);
         topBar.add(topButton3);
         topBar.setBorder(BorderFactory.createTitledBorder("top bar"));
@@ -37,7 +42,7 @@ public class GUI {
         sideBar.add(sideBox);
         sideBar.setBorder(BorderFactory.createTitledBorder("side bar"));
 
-        mainArea.add(scrollPane);
+        mainArea.add(scrollPane, BorderLayout.CENTER);
         mainArea.setBorder(BorderFactory.createTitledBorder("main area"));
 
         JFrame frame = new JFrame();
