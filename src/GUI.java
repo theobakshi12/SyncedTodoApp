@@ -4,6 +4,7 @@ import java.awt.*;
 public class GUI {
 
     private JTextArea textArea;
+    private DefaultListModel<String> model;
     private JTextField usernameField;
     private Backend backend;
 
@@ -25,12 +26,21 @@ public class GUI {
         loadButton.addActionListener(e -> {
             textArea.setText(backend.getContent(usernameField.getText()));
         });
+        JButton loginButton = new JButton("login");
+        loadButton.addActionListener(e -> {
+            //backend.login(usernameField.getText());
+        });
         usernameField = new JTextField("theobakshi12");
         usernameField.setEditable(true);
 
         JButton sideButton1 = new JButton("side1");
         JButton sideButton2 = new JButton("side2");
         JButton sideButton3 = new JButton("side3");
+
+        /*model = new DefaultListModel<>();
+        JList<String> list = new JList<>(model);
+        model.addElement("test");
+        model.addElement("next");*/
 
         textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
@@ -42,17 +52,20 @@ public class GUI {
         topBar.add(saveButton);
         topBar.add(loadButton);
         topBar.add(usernameField);
-        topBar.setBorder(BorderFactory.createTitledBorder("top bar"));
+        topBar.add(loginButton);
+
+        topBar.setBorder(BorderFactory.createTitledBorder("menu"));
 
         Box sideBox = Box.createVerticalBox();
         sideBox.add(sideButton1);
         sideBox.add(sideButton2);
         sideBox.add(sideButton3);
         sideBar.add(sideBox);
-        sideBar.setBorder(BorderFactory.createTitledBorder("side bar"));
+        sideBar.setBorder(BorderFactory.createTitledBorder("files"));
 
+        //mainArea.add(list, BorderLayout.PAGE_START);
         mainArea.add(scrollPane, BorderLayout.CENTER);
-        mainArea.setBorder(BorderFactory.createTitledBorder("main area"));
+        mainArea.setBorder(BorderFactory.createTitledBorder("body"));
 
         JFrame frame = new JFrame();
         frame.setLayout(new BorderLayout());
